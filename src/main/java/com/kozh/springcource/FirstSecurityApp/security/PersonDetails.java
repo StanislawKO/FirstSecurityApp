@@ -1,11 +1,18 @@
 package com.kozh.springcource.FirstSecurityApp.security;
 
+import com.kozh.springcource.FirstSecurityApp.models.Person;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
 public class PersonDetails implements UserDetails {
+    private final Person person;
+
+    public PersonDetails(Person person) {
+        this.person = person;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -13,31 +20,36 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.person.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.person.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+
+    //Нужно, чтобы получать данные аутентифицированного пользователя
+    public Person getPerson() {
+        return this.person;
     }
 }
